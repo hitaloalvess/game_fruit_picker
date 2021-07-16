@@ -1,11 +1,10 @@
-import createPlayer from './player.js'
 import createItem from './item.js'
 import createPlacar from './placar.js'
-import createModal from './gameControlles.js'
+import createModal from './gameController.js'
 import createTimer from './timer.js'
 import createKeyboardListener from './keyboard-listener.js'
 
-import { addClass } from './utils.js'
+import { addClass, getX, setX, getY, setY, getLargura, getAltura } from './utils.js'
 
 export default function createGame(tela) {
 
@@ -38,12 +37,6 @@ export default function createGame(tela) {
         Object.assign(state, newState)
     }
 
-    function renderElements() {
-        addPlayer(screen)
-        addItem()
-        addPlacar()
-        addTimer()
-    }
 
     function start() {
         const frequencia = 30
@@ -88,28 +81,24 @@ export default function createGame(tela) {
 
     }
 
-    function addPlayer() {
-        const player = createPlayer()
-        addClass(player.elemento, 'player')
-        player.elemento.src = '/public/img/fruit-basket.png'
-        player.setX((tela.clientWidth / 2))
+    function addPlacar() {
+        // const placar = createPlacar()
+        // state.tela.appendChild(placar.elemento)
+        // placar.adicionarPontoPlayer(0)
+        // state.placar = placar
+        state.tela.innerHTML += `<div class="placar"><div class="placar-player">Score<span class="pontos">0</span></div></div>`
+        const elemento = document.querySelector(`.placar`)
+        const points = document.querySelector(`.placar .placar-player .pontos`)
+        console.log(elemento, points)
+        state.placar = { elemento, points } //VER PORQUE NAO ALTERA APARTIR DA REFERENCIA POINTS CONTIDA AQUI
 
-        state.tela.appendChild(player.elemento)
-
-        const playerX = (state.tela.clientWidth / 2) - (player.getLargura() / 2)
-        const playerY = state.tela.clientHeight - player.getAltura()
-        player.setX(playerX)
-        player.setY(playerY)
-        state.player = player
-
+        console.log(state.placar)
     }
 
-    function addPlacar() {
-        const placar = createPlacar()
-        state.tela.appendChild(placar.elemento)
-        placar.adicionarPontoPlayer(0)
-        state.placar = placar
-
+    function addPointsScoreBoard(pontos) {
+        const ponto = document.querySelector('.placar .placar-player .pontos')
+        const currentScore = parseInt(ponto.innerHTML)
+        ponto.innerHTML = `${currentScore + pontos}`
     }
 
     function addTimer() {
@@ -120,16 +109,30 @@ export default function createGame(tela) {
         state.timer = timer
     }
 
+    function addPlayer() {
+        state.tela.innerHTML += `<img class="player" src="/public/img/fruit-basket.png">`
+
+        const deslocamento = 9
+        const elemento = document.querySelector(`.player`)
+
+        const playerX = (state.tela.clientWidth / 2) - (getLargura(elemento) / 2)
+        const playerY = state.tela.clientHeight - getAltura(elemento)
+        setX(elemento, playerX)
+        setY(elemento, playerY)
+        state.player = { elemento, deslocamento }
+
+    }
+
     function movePlayer(command) {
         const acceptedMoves = {
             ArrowRight(player) {
-                if (player.getX() + player.deslocamento <= state.tela.clientWidth - player.getLargura()) {
-                    player.setX(player.getX() + player.deslocamento)
+                if (getX(player.elemento) + player.deslocamento <= state.tela.clientWidth - getLargura(player.elemento)) {
+                    setX(player.elemento, (getX(player.elemento) + player.deslocamento))
                 }
             },
             ArrowLeft(player) {
-                if (player.getX() - player.deslocamento >= 0) {
-                    player.setX(player.getX() - player.deslocamento)
+                if (getX(player.elemento) - player.deslocamento >= 0) {
+                    setX(player.elemento, (getX(player.elemento) - player.deslocamento))
                 }
             }
         }
@@ -143,6 +146,12 @@ export default function createGame(tela) {
         }
     }
 
+    function resetPositionItem() {
+        state.item.calcPosX(state.tela)
+        state.item.addClass(state.item.elemento)
+        state.item.setY(-state.item.getAltura())
+    }
+
     function checkItemCollisionScreenBackground(item, tela) {
         if (item.getY() + item.getAltura() >= tela.clientTop + tela.clientHeight) {
             // gameFinished()
@@ -154,21 +163,22 @@ export default function createGame(tela) {
         if (!item || !player) return
 
         let positionItemX = item.getX()
-        let positionPlayerX = player.getX()
+        let positionPlayerX = getX(player.elemento)
         const positionItemY = item.getY() + item.getAltura()
-        const positionPlayerY = player.getY()
+        const positionPlayerY = getY(player.elemento)
         const intervalItensPosX = (positionItemX - positionPlayerX < 0 ? (positionItemX - positionPlayerX) * -1 : positionItemX - positionPlayerX)
 
         if (positionItemY >= positionPlayerY && intervalItensPosX >= 0 && intervalItensPosX <= 60) {
-            state.placar.adicionarPontoPlayer(1)
+            addPointsScoreBoard(1)
             resetPositionItem()
         }
     }
 
-    function resetPositionItem() {
-        state.item.calcPosX(state.tela)
-        state.item.addClass(state.item.elemento)
-        state.item.setY(-state.item.getAltura())
+    function renderElements() {
+        addPlacar()
+        addPlayer(screen)
+        addItem()
+        addTimer()
     }
 
     function clearElements() {

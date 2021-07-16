@@ -1,5 +1,5 @@
 import { renderScenery } from './render-scenery.js'
-import createModal from './gameControlles.js'
+import createModal from './gameController.js'
 
 const screen = document.querySelector('.hf-content')
 
