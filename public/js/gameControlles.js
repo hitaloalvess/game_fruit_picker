@@ -3,7 +3,7 @@ import createKeyboardListener from './keyboard-listener.js'
 export default function createModal(screen) {
 
     const game = createGame(screen)
-    const keyboardListener = createKeyboardListener(document)
+
 
     const modal = document.querySelector(`.modal-screenInitial`)
     const btnControl = document.querySelector(`.modal-screenInitial .container [data-button-type="controls"]`)
@@ -15,19 +15,10 @@ export default function createModal(screen) {
     const functionalities = {
         play() {
             modal.classList.add('disabled')
-
-            game.addPlayer(screen)
-            game.addItem()
-            game.addPlacar()
-            game.addTimer()
-            keyboardListener.registerPlayer(game.state.player)
-            keyboardListener.subscribe(game.movePlayer)
-
-            game.subscribe(keyboardListener.unscribe)
+            game.renderElements()
             setTimeout(game.start, 3000)
         },
         reset() {
-            game.clearElements()
             const functionalitie = functionalities['play']
 
             if (functionalitie) {
@@ -82,14 +73,14 @@ export default function createModal(screen) {
         })
     }
 
-    function activeContainerGameOver(pontos) {
-        const pontuacao = document.querySelector(`.modal-screenInitial [data-container-type="gameOver"] .pontuacao p`)
+    function activeContainergameFinished(pontos) {
+        const pontuacao = document.querySelector(`.modal-screenInitial [data-container-type="gameFinished"] .pontuacao p`)
         pontuacao.textContent = pontos
 
-        activeModal('gameOver')
+        activeModal('gameFinished')
     }
 
     return {
-        activeContainerGameOver
+        activeContainergameFinished
     }
 }

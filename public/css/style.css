@@ -196,6 +196,7 @@ body {
     width: 8rem;
     height: 8rem;
     font-size: clamp(3rem, 3vw, 4rem);
+    outline-style: none;
     cursor: pointer;
 }
 
@@ -230,7 +231,7 @@ body {
 }
 
 .modal-screenInitial .container .initialGame,
-.modal-screenInitial .container .gameOver {
+.modal-screenInitial .container .gameFinished {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -239,7 +240,7 @@ body {
 }
 
 .modal-screenInitial .container div[data-container-type="initialGame"],
-.modal-screenInitial .container div[data-container-type="gameOver"],
+.modal-screenInitial .container div[data-container-type="gameFinished"],
 .modal-screenInitial .container div[data-container-type="controls"] {
     position: absolute;
     width: 0;
@@ -251,7 +252,7 @@ body {
 }
 
 .modal-screenInitial .container div[data-container-type="initialGame"].active,
-.modal-screenInitial .container div[data-container-type="gameOver"].active,
+.modal-screenInitial .container div[data-container-type="gameFinished"].active,
 .modal-screenInitial .container div[data-container-type="controls"].active {
     position: initial;
     width: initial;
@@ -266,30 +267,30 @@ body {
 
 .modal-screenInitial .container .initialGame h3 {
     margin-bottom: 2.5rem;
-    font-size: clamp(4rem, 4.5vw, 7rem);
+    font-size: clamp(4rem, 7vw, 6rem);
     color: white;
 }
 
 
-/*MODAL - gameOver*/
+/*MODAL - gameFinished*/
 
-.modal-screenInitial .container .gameOver h3 {
+.modal-screenInitial .container .gameFinished h3 {
     margin-bottom: 4rem;
-    font-size: clamp(4rem, 5vw, 8rem);
+    font-size: clamp(4rem, 7vw, 5.5rem);
     color: rgb(247, 36, 36);
 }
 
-.modal-screenInitial .container .gameOver button {
+.modal-screenInitial .container .gameFinished button {
     width: 6rem;
     height: 6rem;
     font-size: clamp(2rem, 2vw, 3rem);
 }
 
-.modal-screenInitial .container .gameOver button[data-button-type="reset"] {
+.modal-screenInitial .container .gameFinished button[data-button-type="reset"] {
     background-color: rgb(247, 36, 36);
 }
 
-.modal-screenInitial .container .gameOver .pontuacao {
+.modal-screenInitial .container .gameFinished .pontuacao {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -297,16 +298,16 @@ body {
     margin-bottom: 2rem;
 }
 
-.modal-screenInitial .container .gameOver .pontuacao h5,
-.modal-screenInitial .container .gameOver .pontuacao p {
-    font-size: clamp(2rem, 3vw, 4rem);
+.modal-screenInitial .container .gameFinished .pontuacao h5,
+.modal-screenInitial .container .gameFinished .pontuacao p {
+    font-size: clamp(2.5rem, 5vw, 5rem);
 }
 
-.modal-screenInitial .container .gameOver .pontuacao h5 {
+.modal-screenInitial .container .gameFinished .pontuacao h5 {
     color: white;
 }
 
-.modal-screenInitial .container .gameOver .pontuacao p {
+.modal-screenInitial .container .gameFinished .pontuacao p {
     color: gold;
 }
 

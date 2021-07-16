@@ -1,6 +1,6 @@
 export default function createPlayer() {
     const elemento = document.createElement('img')
-    let deslocamento = 9
+    const deslocamento = 9
 
     function getX() {
         return parseInt(this.elemento.style.left.split('px')[0])
@@ -25,11 +25,6 @@ export default function createPlayer() {
     function getLargura() {
         return this.elemento.clientWidth
     }
-
-    // function addClass(elemento, classe) {
-    //     elemento.className = classe
-    // }
-
 
     return {
         elemento,
