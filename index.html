@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="./public/css/style.css">
+
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/2dd83fe1c7.js" crossorigin="anonymous"></script>
+    <title>Fruit Picker</title>
+</head>
+
+<body>
+    <main class="container">
+        <h1 class="title">Fruit Picker</h1>
+        <div class="hf-content">
+            <!-- <div class="placar">
+                <div class="placar-player">Score<span class="pontos">0</span></div>
+            </div>
+            <div class="timer">
+                <p class="valor">60</p>
+            </div> -->
+            <div class="modal-screenInitial">
+                <div class="container">
+                    <div data-container-type="initialGame" class="initialGame active">
+
+                        <h3>INICIAR GAME</h3>
+                        <button data-button-type="play" class="btn-circle">
+                            <i class="fas fa-play"></i>
+                    </button>
+
+                    </div>
+
+                    <div data-container-type="gameOver" class="gameOver">
+                        <h3>GAME OVER</h3>
+
+                        <div class="pontuacao">
+                            <h5>Score = </h5>
+                            <p>100</p>
+                        </div>
+                        <button data-button-type="reset" class="btn-circle">
+                            <i class="fas fa-undo-alt"></i>
+                        </button>
+                    </div>
+
+
+                    <div data-container-type="controls" class="controls">
+                        <h3>Controles</h3>
+                        <div class="control">
+                            <div class="key"><i class="fas fa-arrow-left"></i></div>
+                            <p>Mover para esquerda</p>
+                        </div>
+                        <div class="control">
+                            <div class="key"><i class="fas fa-arrow-right"></i></div>
+                            <p>Mover para direita</p>
+                        </div>
+                        <button class="closeControls"><i data-button-type="closeControls" class="fas fa-times"></i></button>
+                    </div>
+                    <button type="button" class="btn-control">
+                        <i data-button-type="controls" class="fas fa-gamepad"></i>
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </main>
+
+    <script defer type="module" src="./public/js/app.js"></script>
+</body>
+
+</html>

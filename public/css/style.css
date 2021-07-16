@@ -1,0 +1,378 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/Pixel.ttf');
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: min(120rem, 90%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.container .title {
+    font-family: 'Pixel';
+    font-size: 5rem;
+    padding: 1rem;
+}
+
+.hf-content {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background-color: azure;
+    margin-bottom: 2rem;
+    border: .2rem solid black;
+    background-color: #6ec5f7;
+    overflow: hidden;
+}
+
+.floor {
+    position: absolute;
+    width: 100%;
+    height: 1.5rem;
+    bottom: 0;
+    background-color: rgb(109, 68, 11);
+}
+
+.grams {
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    bottom: 1.5rem;
+}
+
+.grams .gram {
+    width: 15%;
+    height: 10rem;
+    margin-right: 0px;
+    border-radius: 75% 75% 0 0;
+    background-color: #009431;
+}
+
+.grams .gram:nth-child(2n+1) {
+    height: 8rem;
+}
+
+
+/*PLAYER*/
+
+.player {
+    position: absolute;
+    width: 6rem;
+    height: 6rem;
+    left: calc(50% - 30px);
+    top: calc(100% - 30px);
+    z-index: 98;
+    object-fit: cover;
+}
+
+
+/*ITEM*/
+
+.item-coletavel {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    left: calc(50% - 2.5rem);
+    border-radius: 50%;
+    z-index: 97;
+}
+
+
+/*PLACAR*/
+
+.placar {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: .5rem;
+    left: 3%;
+    font-family: 'Pixel';
+    font-size: clamp(1.8rem, 4vw, 5rem);
+    color: black;
+    z-index: 99;
+}
+
+.placar .placar-player {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+
+.placar-player span {
+    padding: .5rem 0;
+    /* background-color: #eee; */
+    /* border-radius: .8rem; */
+    /* border: .1rem solid black; */
+    color: black;
+    margin-left: 1rem;
+}
+
+
+/*TIMER*/
+
+.timer {
+    position: absolute;
+    top: .5rem;
+    left: 45%;
+    background-color: #eee;
+    border-radius: 8px;
+    border: .1rem solid black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 99;
+}
+
+.timer p {
+    font-family: 'Pixel';
+    font-size: clamp(1.8rem, 4vw, 5rem);
+    padding: .5rem;
+}
+
+
+/*MODAL*/
+
+.modal-screenInitial {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, .7);
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 1s ease-in;
+}
+
+.modal-screenInitial.disabled {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-80vh);
+    transition: all 1s ease-in;
+}
+
+.modal-screenInitial .container {
+    position: relative;
+    width: min(40rem, 90%);
+    height: 50vh;
+    justify-content: center;
+    font-family: 'Pixel';
+    border-radius: .8rem;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal-screenInitial .container button {
+    background-color: transparent;
+    border: none;
+    width: 8rem;
+    height: 8rem;
+    font-size: clamp(3rem, 3vw, 4rem);
+    cursor: pointer;
+}
+
+.modal-screenInitial .container .btn-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orangered;
+    color: white;
+    border-radius: 50%;
+    transition: filter .2s ease-in;
+}
+
+.modal-screenInitial .container .btn-circle:hover {
+    filter: brightness(1.5);
+}
+
+.modal-screenInitial .container .btn-control {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    color: white;
+    transform: scale(1);
+}
+
+.modal-screenInitial .container [data-button-type="controls"] {
+    transition: transform .3s ease-in-out;
+}
+
+.modal-screenInitial .container [data-button-type="controls"]:hover {
+    transform: scale(1.2);
+}
+
+.modal-screenInitial .container .initialGame,
+.modal-screenInitial .container .gameOver {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-screenInitial .container div[data-container-type="initialGame"],
+.modal-screenInitial .container div[data-container-type="gameOver"],
+.modal-screenInitial .container div[data-container-type="controls"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.modal-screenInitial .container div[data-container-type="initialGame"].active,
+.modal-screenInitial .container div[data-container-type="gameOver"].active,
+.modal-screenInitial .container div[data-container-type="controls"].active {
+    position: initial;
+    width: initial;
+    height: initial;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility .5s ease-in-out, opacity .5s ease-in-out;
+}
+
+
+/*MODAL - INITIAL GAME*/
+
+.modal-screenInitial .container .initialGame h3 {
+    margin-bottom: 2.5rem;
+    font-size: clamp(4rem, 4.5vw, 7rem);
+    color: white;
+}
+
+
+/*MODAL - gameOver*/
+
+.modal-screenInitial .container .gameOver h3 {
+    margin-bottom: 4rem;
+    font-size: clamp(4rem, 5vw, 8rem);
+    color: rgb(247, 36, 36);
+}
+
+.modal-screenInitial .container .gameOver button {
+    width: 6rem;
+    height: 6rem;
+    font-size: clamp(2rem, 2vw, 3rem);
+}
+
+.modal-screenInitial .container .gameOver button[data-button-type="reset"] {
+    background-color: rgb(247, 36, 36);
+}
+
+.modal-screenInitial .container .gameOver .pontuacao {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 2rem;
+}
+
+.modal-screenInitial .container .gameOver .pontuacao h5,
+.modal-screenInitial .container .gameOver .pontuacao p {
+    font-size: clamp(2rem, 3vw, 4rem);
+}
+
+.modal-screenInitial .container .gameOver .pontuacao h5 {
+    color: white;
+}
+
+.modal-screenInitial .container .gameOver .pontuacao p {
+    color: gold;
+}
+
+
+/*MODAL - CONTROLS*/
+
+.modal-screenInitial .container .controls {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 4rem;
+    top: 0;
+    border-radius: .8rem;
+    z-index: 100;
+}
+
+.modal-screenInitial .container .controls h3 {
+    font-size: clamp(2.5rem, 3vw, 4.5rem);
+    margin-bottom: 5rem;
+    color: orangered;
+}
+
+.modal-screenInitial .container .controls .control {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.modal-screenInitial .container .controls .control .key {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1.5rem, 1.8vw, 3rem);
+    border-radius: .8rem;
+    border: .1rem solid black;
+    background-color: white;
+}
+
+.modal-screenInitial .container .controls .control p {
+    margin-left: 2rem;
+    font-size: clamp(1.8rem, 2vw, 2.5rem);
+    color: white;
+}
+
+.modal-screenInitial .container .controls .closeControls {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: clamp(2rem, 2vw, 4rem);
+}
+
+.modal-screenInitial .container .controls [data-button-type="closeControls"] {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform .3s ease-in-out, color .3s ease-in-out;
+}
+
+.modal-screenInitial .container .controls [data-button-type="closeControls"]:hover {
+    transform: scale(1.2);
+    color: orangered;
+}
