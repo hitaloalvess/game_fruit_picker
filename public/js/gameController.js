@@ -1,8 +1,8 @@
 import createGame from './game.js'
-import createKeyboardListener from './keyboard-listener.js'
-export default function createModal(screen) {
 
-    const game = createGame(screen)
+export default function createModal(screen, document) {
+
+    const game = createGame(screen, document)
 
 
     const modal = document.querySelector(`.modal-screenInitial`)

@@ -1,12 +1,11 @@
 import createItem from './item.js'
-import createPlacar from './placar.js'
 import createModal from './gameController.js'
 import createTimer from './timer.js'
 import createKeyboardListener from './keyboard-listener.js'
 
 import { addClass, getX, setX, getY, setY, getLargura, getAltura } from './utils.js'
 
-export default function createGame(tela) {
+export default function createGame(tela, document) {
 
     const keyboardListener = createKeyboardListener(document)
 
@@ -60,7 +59,7 @@ export default function createGame(tela) {
         const modal = createModal(tela)
 
         clearInterval(state.tempo)
-        modal.activeContainergameFinished(state.placar.getPontosPlayer())
+        modal.activeContainergameFinished(state.placar.points.textContent)
         notify(movePlayer)
         clearElements()
     }
@@ -82,23 +81,19 @@ export default function createGame(tela) {
     }
 
     function addPlacar() {
-        // const placar = createPlacar()
-        // state.tela.appendChild(placar.elemento)
-        // placar.adicionarPontoPlayer(0)
-        // state.placar = placar
-        state.tela.innerHTML += `<div class="placar"><div class="placar-player">Score<span class="pontos">0</span></div></div>`
+        const html = `<div class="placar"><div class="placar-player">Score<span class="pontos">0</span></div></div>`
+        state.tela.insertAdjacentHTML('afterbegin', html)
+
         const elemento = document.querySelector(`.placar`)
         const points = document.querySelector(`.placar .placar-player .pontos`)
-        console.log(elemento, points)
-        state.placar = { elemento, points } //VER PORQUE NAO ALTERA APARTIR DA REFERENCIA POINTS CONTIDA AQUI
 
-        console.log(state.placar)
+        state.placar = { elemento, points }
+
     }
 
     function addPointsScoreBoard(pontos) {
-        const ponto = document.querySelector('.placar .placar-player .pontos')
-        const currentScore = parseInt(ponto.innerHTML)
-        ponto.innerHTML = `${currentScore + pontos}`
+        const currentScore = parseInt(state.placar.points.textContent)
+        state.placar.points.textContent = `${currentScore + pontos}`
     }
 
     function addTimer() {
@@ -110,7 +105,8 @@ export default function createGame(tela) {
     }
 
     function addPlayer() {
-        state.tela.innerHTML += `<img class="player" src="/public/img/fruit-basket.png">`
+        const html = `<img class="player" src="/public/img/fruit-basket.png">`
+        state.tela.insertAdjacentHTML('afterbegin', html)
 
         const deslocamento = 9
         const elemento = document.querySelector(`.player`)

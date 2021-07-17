@@ -5,4 +5,4 @@ const screen = document.querySelector('.hf-content')
 
 renderScenery(screen)
 
-createModal(screen)
+createModal(screen, document)
