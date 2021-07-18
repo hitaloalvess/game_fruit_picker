@@ -1,4 +1,5 @@
 export default function createKeyboardListener(document) {
+
     const state = {
         player: {},
         observers: []
@@ -12,8 +13,8 @@ export default function createKeyboardListener(document) {
         state.observers.push(observerFunction)
     }
 
-    function unscribe(observerFunction) {
-        state.observers = state.observers.filter(subscriber => subscriber !== observerFunction)
+    function unscribe(command) {
+        state.observers = state.observers.filter(subscriber => subscriber !== command.observerFunction)
     }
 
     function notify(command) {

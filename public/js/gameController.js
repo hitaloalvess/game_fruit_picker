@@ -1,22 +1,37 @@
-import createGame from './game.js'
+export default function createGameController(screen, document) {
 
-export default function createModal(screen, document) {
-
-    const game = createGame(screen, document)
-
-
-    const modal = document.querySelector(`.modal-screenInitial`)
+    const gameController = document.querySelector(`.modal-screenInitial`)
     const btnControl = document.querySelector(`.modal-screenInitial .container [data-button-type="controls"]`)
 
     const state = {
-        currentContainer: 'initialGame'
+        currentContainer: 'initialGame',
+        observers: []
+    }
+
+    function subscribe(observerFunction) {
+        state.observers.push(observerFunction)
+    }
+
+    function unscribe(observerFunction) {
+        state.observers = state.observers.filter(observe => observe !== observerFunction)
+    }
+
+    function notify(command) {
+        for (const observerFunction of state.observers) {
+            observerFunction(command)
+        }
+    }
+
+    function setState(newState) {
+        Object.assign(state, newState)
     }
 
     const functionalities = {
         play() {
-            modal.classList.add('disabled')
-            game.renderElements()
-            setTimeout(game.start, 3000)
+            console.log(state.game)
+            gameController.classList.add('disabled')
+
+            notify({ type: 'start' })
         },
         reset() {
             const functionalitie = functionalities['play']
@@ -53,7 +68,7 @@ export default function createModal(screen, document) {
 
     function activeModal(typeContainer) {
 
-        modal.classList.remove('disabled')
+        gameController.classList.remove('disabled')
         state.currentContainer = typeContainer
 
         changeContainer(typeContainer)
@@ -73,14 +88,20 @@ export default function createModal(screen, document) {
         })
     }
 
-    function activeContainergameFinished(pontos) {
+    function activeContainerGameFinished(command) {
+        if (!('type' in command)) return
+        if (command.type !== 'finished') return
+
         const pontuacao = document.querySelector(`.modal-screenInitial [data-container-type="gameFinished"] .pontuacao p`)
-        pontuacao.textContent = pontos
+        pontuacao.textContent = command.pontos
 
         activeModal('gameFinished')
     }
 
     return {
-        activeContainergameFinished
+        setState,
+        activeContainerGameFinished,
+        subscribe,
+        unscribe
     }
 }

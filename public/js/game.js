@@ -1,6 +1,4 @@
 import createItem from './item.js'
-import createModal from './gameController.js'
-import createTimer from './timer.js'
 import createKeyboardListener from './keyboard-listener.js'
 
 import { addClass, getX, setX, getY, setY, getLargura, getAltura } from './utils.js'
@@ -37,30 +35,41 @@ export default function createGame(tela, document) {
     }
 
 
-    function start() {
-        const frequencia = 30
+    function start(command) {
+        if (!('type' in command)) return
+        if (command.type !== 'start') return
 
-        keyboardListener.registerPlayer(state.player)
-        keyboardListener.subscribe(movePlayer)
+        setTimeout(() => {
+            const frequencia = 30
 
-        subscribe(keyboardListener.unscribe)
+            keyboardListener.registerPlayer(state.player)
+            keyboardListener.subscribe(movePlayer)
 
-        const temporizador = setInterval(() => {
-            state.item.animar()
-            checkItemCollisionScreenBackground(state.item, state.tela)
-            checkItemCollisionPlayer(state.item, state.player)
-        }, frequencia)
-        state.timer.start()
-        setState({ tempo: temporizador })
+            subscribe(keyboardListener.unscribe)
+
+            const temporizador = setInterval(() => {
+                state.item.animar()
+                checkItemCollisionScreenBackground(state.item, state.tela)
+                checkItemCollisionPlayer(state.item, state.player)
+            }, frequencia)
+
+            state.timer.start()
+            setState({ tempo: temporizador })
+
+        }, 1000)
     }
 
     function gameFinished(command) {
-        if (command.type !== 'finished') return
-        const modal = createModal(tela)
+        // if (command.type !== 'finished') return
 
         clearInterval(state.tempo)
-        modal.activeContainergameFinished(state.placar.points.textContent)
-        notify(movePlayer)
+
+        notify({
+            type: 'finished',
+            pontos: state.placar.points.textContent,
+            observerFunction: movePlayer
+        })
+
         clearElements()
     }
 
@@ -96,13 +105,34 @@ export default function createGame(tela, document) {
         state.placar.points.textContent = `${currentScore + pontos}`
     }
 
-    function addTimer() {
-        const timer = createTimer(60)
-        state.tela.appendChild(timer.elemento)
+    function addTimer(initialTime) {
+        const html = `<div class="timer"><p>${initialTime}</p></div>`
+        state.tela.insertAdjacentHTML('afterbegin', html)
 
-        timer.subscribe(gameFinished)
-        state.timer = timer
+        const elemento = document.querySelector(`.hf-content .timer`)
+        const valueTimer = document.querySelector(`.hf-content .timer p`)
+
+        const start = function() {
+            let currentTime = valueTimer.textContent <= 9 ? `0${valueTimer.textContent}` : `${valueTimer.textContent}`
+            let nextTime = parseInt(currentTime) - 1
+
+            valueTimer.textContent = nextTime
+
+            if (nextTime > 0) {
+                setTimeout(start, 1000)
+            } else {
+                gameFinished()
+            }
+        }
+
+        state.timer = {
+            elemento,
+            valueTimer,
+            start
+        }
     }
+
+
 
     function addPlayer() {
         const html = `<img class="player" src="/public/img/fruit-basket.png">`
@@ -150,7 +180,6 @@ export default function createGame(tela, document) {
 
     function checkItemCollisionScreenBackground(item, tela) {
         if (item.getY() + item.getAltura() >= tela.clientTop + tela.clientHeight) {
-            // gameFinished()
             resetPositionItem()
         }
     }
@@ -170,11 +199,14 @@ export default function createGame(tela, document) {
         }
     }
 
-    function renderElements() {
+    function renderElements(command) {
+        if (!('type' in command)) return
+        if (command.type !== 'start') return
+
         addPlacar()
-        addPlayer(screen)
+        addPlayer()
         addItem()
-        addTimer()
+        addTimer(6)
     }
 
     function clearElements() {
@@ -191,11 +223,10 @@ export default function createGame(tela, document) {
     }
 
     return {
-        state,
+        setState,
         start,
         renderElements,
         subscribe,
         unscribe,
-        clearElements
     }
 }
