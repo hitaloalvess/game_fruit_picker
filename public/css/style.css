@@ -92,10 +92,11 @@ body {
 
 .item-coletavel {
     position: absolute;
-    width: 5rem;
-    height: 5rem;
+    width: 4.5rem;
+    height: 4.5rem;
     left: calc(50% - 2.5rem);
     border-radius: 50%;
+    object-fit: cover;
     z-index: 97;
 }
 
@@ -275,8 +276,8 @@ body {
 /*MODAL - gameFinished*/
 
 .modal-screenInitial .container .gameFinished h3 {
-    margin-bottom: 4rem;
-    font-size: clamp(4rem, 7vw, 5.5rem);
+    margin-bottom: 7%;
+    font-size: clamp(4rem, 5vw, 5.5rem);
     color: rgb(247, 36, 36);
 }
 
@@ -295,12 +296,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    margin-bottom: 2rem;
+    margin-bottom: 5%;
 }
 
 .modal-screenInitial .container .gameFinished .pontuacao h5,
 .modal-screenInitial .container .gameFinished .pontuacao p {
-    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-size: clamp(2.5rem, 4vw, 5rem);
 }
 
 .modal-screenInitial .container .gameFinished .pontuacao h5 {

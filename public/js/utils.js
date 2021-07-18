@@ -31,3 +31,8 @@ export const getAltura = function(elemento) {
 export const getLargura = function(elemento) {
     return elemento.clientWidth
 }
+
+export const valueBetween = function(max, min) {
+    if (min > max)[min, max] = [max, min]
+    return Math.round(Math.random() * (max - min)) + min
+}

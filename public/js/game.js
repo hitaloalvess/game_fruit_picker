@@ -1,7 +1,6 @@
-import createItem from './item.js'
 import createKeyboardListener from './keyboard-listener.js'
 
-import { addClass, getX, setX, getY, setY, getLargura, getAltura } from './utils.js'
+import { addClass, getX, setX, getY, setY, getLargura, getAltura, valueBetween } from './utils.js'
 
 export default function createGame(tela, document) {
 
@@ -40,7 +39,7 @@ export default function createGame(tela, document) {
         if (command.type !== 'start') return
 
         setTimeout(() => {
-            const frequencia = 30
+            const frequencia = 40
 
             keyboardListener.registerPlayer(state.player)
             keyboardListener.subscribe(movePlayer)
@@ -48,7 +47,7 @@ export default function createGame(tela, document) {
             subscribe(keyboardListener.unscribe)
 
             const temporizador = setInterval(() => {
-                state.item.animar()
+                state.item.animateItem()
                 checkItemCollisionScreenBackground(state.item, state.tela)
                 checkItemCollisionPlayer(state.item, state.player)
             }, frequencia)
@@ -60,8 +59,6 @@ export default function createGame(tela, document) {
     }
 
     function gameFinished(command) {
-        // if (command.type !== 'finished') return
-
         clearInterval(state.tempo)
 
         notify({
@@ -74,19 +71,35 @@ export default function createGame(tela, document) {
     }
 
 
-    function addItem() {
+    function addItem(src, deslocamento, pontuacao) {
+        const html = `<img class="item-coletavel nao-saudavel" src="/public/img/${src}.png">`
+        state.tela.insertAdjacentHTML('afterbegin', html)
 
-        const item = createItem(state.tela)
-        item.addClass(item.elemento)
-        item.elemento.src = '/public/img/apple.png'
-        state.tela.appendChild(item.elemento)
+        const elemento = document.querySelector(`img.item-coletavel`)
+        const posX = calcNewPosXItem(elemento, state.tela)
 
-        const itemY = item.elemento.clientHeight
-        item.calcPosX(state.tela)
-        item.setY(-itemY)
-        item.animar()
-        state.item = item
+        setX(elemento, posX)
+        setY(elemento, -elemento.clientHeight)
 
+        const animateItem = function() {
+            const newPosition = getY(this.elemento) + this.deslocamento
+            setY(elemento, newPosition)
+        }
+
+        state.item = {
+            elemento,
+            deslocamento,
+            pontuacao,
+            animateItem
+        }
+    }
+
+
+    function calcNewPosXItem(item, tela) {
+        let novaPosX = valueBetween(tela.clientWidth, 0)
+        if (novaPosX > tela.clientWidth - getLargura(item)) novaPosX = tela.clientWidth - getLargura(item)
+
+        return novaPosX
     }
 
     function addPlacar() {
@@ -132,8 +145,6 @@ export default function createGame(tela, document) {
         }
     }
 
-
-
     function addPlayer() {
         const html = `<img class="player" src="/public/img/fruit-basket.png">`
         state.tela.insertAdjacentHTML('afterbegin', html)
@@ -172,30 +183,32 @@ export default function createGame(tela, document) {
         }
     }
 
-    function resetPositionItem() {
-        state.item.calcPosX(state.tela)
-        state.item.addClass(state.item.elemento)
-        state.item.setY(-state.item.getAltura())
+    function resetPositionItem(item) {
+        const tela = state.tela
+
+        setX(item.elemento, calcNewPosXItem(item.elemento, tela))
+        setY(item.elemento, -getLargura(item.elemento))
     }
 
-    function checkItemCollisionScreenBackground(item, tela) {
-        if (item.getY() + item.getAltura() >= tela.clientTop + tela.clientHeight) {
-            resetPositionItem()
+    function checkItemCollisionScreenBackground(item) {
+        const tela = state.tela
+        if (getY(item.elemento) + getAltura(item.elemento) >= tela.clientTop + tela.clientHeight) {
+            resetPositionItem(item)
         }
     }
 
     function checkItemCollisionPlayer(item, player) {
         if (!item || !player) return
 
-        let positionItemX = item.getX()
+        let positionItemX = getX(item.elemento)
         let positionPlayerX = getX(player.elemento)
-        const positionItemY = item.getY() + item.getAltura()
+        const positionItemY = getY(item.elemento) + getAltura(item.elemento)
         const positionPlayerY = getY(player.elemento)
         const intervalItensPosX = (positionItemX - positionPlayerX < 0 ? (positionItemX - positionPlayerX) * -1 : positionItemX - positionPlayerX)
 
         if (positionItemY >= positionPlayerY && intervalItensPosX >= 0 && intervalItensPosX <= 60) {
-            addPointsScoreBoard(1)
-            resetPositionItem()
+            addPointsScoreBoard(item.pontuacao)
+            resetPositionItem(item)
         }
     }
 
@@ -205,7 +218,7 @@ export default function createGame(tela, document) {
 
         addPlacar()
         addPlayer()
-        addItem()
+        addItem('orange-juice', 5, 2)
         addTimer(6)
     }
 

@@ -28,7 +28,6 @@ export default function createGameController(screen, document) {
 
     const functionalities = {
         play() {
-            console.log(state.game)
             gameController.classList.add('disabled')
 
             notify({ type: 'start' })
