@@ -8,7 +8,7 @@ export default function createGame(tela, document) {
 
     const state = {
         player: {},
-        item: {},
+        items: [],
         tela: tela,
         placar: {},
         timer: {},
@@ -40,25 +40,25 @@ export default function createGame(tela, document) {
 
         setTimeout(() => {
             const frequencia = 40
-
             keyboardListener.registerPlayer(state.player)
             keyboardListener.subscribe(movePlayer)
-
             subscribe(keyboardListener.unscribe)
 
             const temporizador = setInterval(() => {
-                state.item.animateItem()
-                checkItemCollisionScreenBackground(state.item, state.tela)
-                checkItemCollisionPlayer(state.item, state.player)
+                for (const item of state.items) {
+                    item.animateItem()
+                    checkItemCollisionScreenBackground(item, state.tela)
+                    checkItemCollisionPlayer(item, state.player)
+                }
             }, frequencia)
 
             state.timer.start()
             setState({ tempo: temporizador })
 
-        }, 1000)
+        }, 200)
     }
 
-    function gameFinished(command) {
+    function gameFinished() {
         clearInterval(state.tempo)
 
         notify({
@@ -70,30 +70,62 @@ export default function createGame(tela, document) {
         clearElements()
     }
 
+    function renderElements(command) {
+        if (!('type' in command)) return
+        if (command.type !== 'start') return
 
-    function addItem(src, deslocamento, pontuacao) {
-        const html = `<img class="item-coletavel nao-saudavel" src="/public/img/${src}.png">`
+        addPlacar()
+        addPlayer()
+        addTimer(60)
+        itemGenerator(3)
+    }
+
+    function addItem(item, posicao) {
+        const html = `<img class="item-coletavel nao-saudavel" src="/public/img/${item.src}">`
         state.tela.insertAdjacentHTML('afterbegin', html)
 
         const elemento = document.querySelector(`img.item-coletavel`)
         const posX = calcNewPosXItem(elemento, state.tela)
 
         setX(elemento, posX)
-        setY(elemento, -elemento.clientHeight)
+        setY(elemento, (-elemento.clientHeight * posicao))
 
         const animateItem = function() {
-            const newPosition = getY(this.elemento) + this.deslocamento
+            const newPosition = getY(this.elemento) + item.deslocamento
             setY(elemento, newPosition)
         }
 
-        state.item = {
+        state.items.push({
             elemento,
-            deslocamento,
-            pontuacao,
+            deslocamento: item.deslocamento,
+            pontuacao: item.pontuacao,
             animateItem
-        }
+        })
     }
 
+    function itemGenerator(qtdItems) {
+        const fruits = [{
+                src: 'banana.png',
+                deslocamento: 4,
+                pontuacao: 3
+            },
+            {
+                src: 'watermelon.png',
+                deslocamento: 4,
+                pontuacao: 2
+            },
+            {
+                src: 'orange-juice.png',
+                deslocamento: 4,
+                pontuacao: 1
+            }
+        ]
+
+        const items = Array.from(new Array(qtdItems)).map(item => fruits[valueBetween(3 - 1, 0)])
+
+        items.forEach((item, index) => addItem(item, index * 10))
+
+    }
 
     function calcNewPosXItem(item, tela) {
         let novaPosX = valueBetween(tela.clientWidth, 0)
@@ -183,17 +215,16 @@ export default function createGame(tela, document) {
         }
     }
 
-    function resetPositionItem(item) {
-        const tela = state.tela
-
-        setX(item.elemento, calcNewPosXItem(item.elemento, tela))
-        setY(item.elemento, -getLargura(item.elemento))
+    function resetItem(item) {
+        clearItem(item)
+        itemGenerator(1)
     }
 
     function checkItemCollisionScreenBackground(item) {
         const tela = state.tela
         if (getY(item.elemento) + getAltura(item.elemento) >= tela.clientTop + tela.clientHeight) {
-            resetPositionItem(item)
+            resetItem(item)
+
         }
     }
 
@@ -208,28 +239,28 @@ export default function createGame(tela, document) {
 
         if (positionItemY >= positionPlayerY && intervalItensPosX >= 0 && intervalItensPosX <= 60) {
             addPointsScoreBoard(item.pontuacao)
-            resetPositionItem(item)
+            resetItem(item)
         }
     }
 
-    function renderElements(command) {
-        if (!('type' in command)) return
-        if (command.type !== 'start') return
+    function clearItem(item) {
 
-        addPlacar()
-        addPlayer()
-        addItem('orange-juice', 5, 2)
-        addTimer(6)
+        state.items = state.items.filter(element => element !== item)
+        state.tela.removeChild(item.elemento)
+
     }
 
     function clearElements() {
-        const elements = [state.item, state.player, state.placar, state.timer]
+        const elements = [state.player, state.placar, state.timer]
 
+        state.items.forEach(item => {
+            state.tela.removeChild(item.elemento)
+        })
         elements.forEach(element => {
             state.tela.removeChild(element.elemento)
         })
 
-        state.item = null
+        state.items = []
         state.player = null
         state.placar = null
         state.timer = null

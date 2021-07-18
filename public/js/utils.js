@@ -34,5 +34,5 @@ export const getLargura = function(elemento) {
 
 export const valueBetween = function(max, min) {
     if (min > max)[min, max] = [max, min]
-    return Math.round(Math.random() * (max - min)) + min
+    return Math.round(Math.random() * (max - min) + min)
 }

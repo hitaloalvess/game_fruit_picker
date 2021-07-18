@@ -79,8 +79,8 @@ body {
 
 .player {
     position: absolute;
-    width: 6rem;
-    height: 6rem;
+    width: clamp(4rem, 5vw, 6rem);
+    height: clamp(4rem, 5vw, 6rem);
     left: calc(50% - 30px);
     top: calc(100% - 30px);
     z-index: 98;
@@ -92,8 +92,8 @@ body {
 
 .item-coletavel {
     position: absolute;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: clamp(2.5rem, 4vw, 4.5rem);
+    height: clamp(2.5rem, 4vw, 4.5rem);
     left: calc(50% - 2.5rem);
     border-radius: 50%;
     object-fit: cover;
