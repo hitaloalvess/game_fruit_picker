@@ -1,6 +1,7 @@
 import createKeyboardListener from './keyboard-listener.js'
 
-import { addClass, getX, setX, getY, setY, getLargura, getAltura, valueBetween } from './utils.js'
+import { getX, setX, getY, setY, getLargura, getAltura, valueBetween } from './utils.js'
+import { renderItem, renderPlacar, renderTimer, renderPlayer } from './render-elements.js'
 
 export default function createGame(tela, document) {
 
@@ -81,8 +82,7 @@ export default function createGame(tela, document) {
     }
 
     function addItem(item, posicao) {
-        const html = `<img class="item-coletavel nao-saudavel" src="/public/img/${item.src}">`
-        state.tela.insertAdjacentHTML('afterbegin', html)
+        renderItem(state.tela, item.src)
 
         const elemento = document.querySelector(`img.item-coletavel`)
         const posX = calcNewPosXItem(elemento, state.tela)
@@ -118,11 +118,21 @@ export default function createGame(tela, document) {
                 src: 'orange-juice.png',
                 deslocamento: 4,
                 pontuacao: 1
+            },
+            {
+                src: 'bomba.png',
+                deslocamento: 4.5,
+                pontuacao: -2
+            },
+            {
+                src: 'dinamite.png',
+                deslocamento: 5,
+                pontuacao: -3
             }
         ]
 
-        const items = Array.from(new Array(qtdItems)).map(item => fruits[valueBetween(3 - 1, 0)])
-
+        const value = valueBetween(fruits.length - 1, 0, 95)
+        const items = Array.from(new Array(qtdItems)).map(item => fruits[value])
         items.forEach((item, index) => addItem(item, index * 10))
 
     }
@@ -135,24 +145,21 @@ export default function createGame(tela, document) {
     }
 
     function addPlacar() {
-        const html = `<div class="placar"><div class="placar-player">Score<span class="pontos">0</span></div></div>`
-        state.tela.insertAdjacentHTML('afterbegin', html)
+        renderPlacar(state.tela)
 
         const elemento = document.querySelector(`.placar`)
         const points = document.querySelector(`.placar .placar-player .pontos`)
 
         state.placar = { elemento, points }
-
     }
 
     function addPointsScoreBoard(pontos) {
         const currentScore = parseInt(state.placar.points.textContent)
-        state.placar.points.textContent = `${currentScore + pontos}`
+        state.placar.points.textContent = (currentScore + pontos) > 0 ? `${currentScore + pontos}` : `${0}`
     }
 
     function addTimer(initialTime) {
-        const html = `<div class="timer"><p>${initialTime}</p></div>`
-        state.tela.insertAdjacentHTML('afterbegin', html)
+        renderTimer(state.tela, initialTime)
 
         const elemento = document.querySelector(`.hf-content .timer`)
         const valueTimer = document.querySelector(`.hf-content .timer p`)
@@ -178,10 +185,10 @@ export default function createGame(tela, document) {
     }
 
     function addPlayer() {
-        const html = `<img class="player" src="/public/img/fruit-basket.png">`
-        state.tela.insertAdjacentHTML('afterbegin', html)
+        renderPlayer(state.tela, 'fruit-basket.png')
 
-        const deslocamento = 9
+        const deslocamento = getLargura(state.tela) <= 500 ? 7 : 9
+        console.log(deslocamento)
         const elemento = document.querySelector(`.player`)
 
         const playerX = (state.tela.clientWidth / 2) - (getLargura(elemento) / 2)
@@ -244,6 +251,7 @@ export default function createGame(tela, document) {
     }
 
     function clearItem(item) {
+        if (!checkExistingChild(state.tela, item.elemento)) return
 
         state.items = state.items.filter(element => element !== item)
         state.tela.removeChild(item.elemento)
@@ -264,6 +272,10 @@ export default function createGame(tela, document) {
         state.player = null
         state.placar = null
         state.timer = null
+    }
+
+    function checkExistingChild(pai, filho) {
+        return pai.contains(filho)
     }
 
     return {
