@@ -10,5 +10,5 @@
 </p>
 
 <p align="center">
- <img src=".github/gameplay.gif" alt="Application demo" width="500px" height="550px"/>
+ <img src=".github/gameplay.gif" alt="Application demo" width="700px" height="550px"/>
 </p>
