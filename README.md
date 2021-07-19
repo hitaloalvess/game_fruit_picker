@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Utility" title="Utility" src=".github/logo-fruit-picker.png" width="220px" />
+  <img alt="Utility" title="Utility" src=".github/logo-fruit-picker.png" width="400px" />
 </h1>
 
 <p align="center">
@@ -10,5 +10,5 @@
 </p>
 
 <p align="center">
- <img src=".github/gameplay.gif" alt="Application demo" />
+ <img src=".github/gameplay.gif" alt="Application demo"  height="400px"/>
 </p>
