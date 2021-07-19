@@ -35,6 +35,7 @@ The creation of this project was carried out aiming to improve concepts and tech
 - Modules already
 - CSS grid
 - CSS flexbox
+- Responsive layout
 - Dynamic HTML generation, etc.
 
 ---
