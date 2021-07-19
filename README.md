@@ -5,7 +5,7 @@
 <p align="center">
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-objectives">Objectives</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-objectives">Objectives</a>
 
 </p>
 
@@ -23,18 +23,19 @@ This project was developed with the following technologies:
 
 ## 💻 Project
 
-Fruit picker é um game desenvolvido utilizando a linguagem Javascript, juntamente de HTML e CSS. 
+Fruit picker is a game developed using Javascript language, together with HTML and CSS.
 
 ## :memo: Objectives
 
-A criação desse projeto foi realizada visando aprimorar conceitos e técnicas referentes a Javascript, CSS e HTML. Através da elaboração do game foi possível trabalhar conceitos referentes a:
-- Manipulação de DOM
-- Manipulação de objetos
-- Manipulação dearrays
-- Modulos js
-- Css grid
-- Css flexbox 
-- Geração dinâmica de HTML, etc
+The creation of this project was carried out aiming to improve concepts and techniques related to Javascript, CSS and HTML. Through the development of the game, it was possible to work on concepts related to:
+
+- DOM manipulation
+- Object manipulation
+- Array manipulation
+- Modules already
+- CSS grid
+- CSS flexbox
+- Dynamic HTML generation, etc.
 
 ---
 Made with ♥ by Hitalo 🚀
