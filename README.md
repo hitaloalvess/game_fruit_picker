@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Utility" title="Utility" src=".github/logo.png" width="220px" />
+  <img alt="Utility" title="Utility" src=".github/logo-fruit-picker.png" width="220px" />
 </h1>
 
 <p align="center">
@@ -7,4 +7,8 @@
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-objectives">Objectives</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 
+</p>
+
+<p align="center">
+ <img src=".github/gameplay.gif" alt="Application demo" />
 </p>
