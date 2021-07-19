@@ -39,7 +39,7 @@ body {
 }
 
 .container {
-    width: min(80rem, 90%);
+    width: min(50rem, 90%);
     height: 100vh;
     flex-direction: column;
     background-color: var(--white);
@@ -94,8 +94,8 @@ body {
 
 .player {
     position: absolute;
-    width: clamp(2.5rem, 5vw, 6rem);
-    height: clamp(2.5rem, 5vw, 6rem);
+    width: clamp(2.5rem, 4vw, 6rem);
+    height: clamp(2.5rem, 4vw, 6rem);
     left: calc(50% - 30px);
     top: calc(100% - 30px);
     z-index: 98;
@@ -107,8 +107,8 @@ body {
 
 .item-coletavel {
     position: absolute;
-    width: clamp(2.5rem, 4vw, 4.5rem);
-    height: clamp(2.5rem, 4vw, 4.5rem);
+    width: clamp(2.5rem, 3vw, 4.5rem);
+    height: clamp(2.5rem, 3vw, 4.5rem);
     left: calc(50% - 2.5rem);
     border-radius: 50%;
     object-fit: cover;
@@ -185,7 +185,7 @@ body {
 
 .modal-screenInitial .container {
     position: relative;
-    width: min(40rem, 90%);
+    width: min(30rem, 90%);
     height: 50vh;
     justify-content: center;
     font-family: 'Pixel';
@@ -196,9 +196,9 @@ body {
 .modal-screenInitial .container button {
     background-color: transparent;
     border: none;
-    width: 8rem;
-    height: 8rem;
-    font-size: clamp(3rem, 3vw, 4rem);
+    width: 6.5rem;
+    height: 6.5rem;
+    font-size: clamp(3rem, 2vw, 4rem);
     outline-style: none;
     cursor: pointer;
 }
@@ -216,7 +216,7 @@ body {
 
 .modal-screenInitial .container .btn-control {
     position: absolute;
-    bottom: -1.5rem;
+    bottom: -1rem;
     left: 0;
     color: var(--white);
     transform: scale(1);
@@ -264,7 +264,7 @@ body {
 
 .modal-screenInitial .container .initialGame h3 {
     margin-bottom: 2.5rem;
-    font-size: clamp(4rem, 7vw, 6rem);
+    font-size: clamp(4rem, 5vw, 6rem);
     color: var(--white);
 }
 
@@ -273,14 +273,14 @@ body {
 
 .modal-screenInitial .container .gameFinished h3 {
     margin-bottom: 7%;
-    font-size: clamp(3.5rem, 5vw, 5.5rem);
+    font-size: clamp(3.5rem, 4vw, 5.5rem);
     color: var(--red);
 }
 
 .modal-screenInitial .container .gameFinished button {
-    width: 6rem;
-    height: 6rem;
-    font-size: clamp(2rem, 2vw, 3rem);
+    width: 5rem;
+    height: 5rem;
+    font-size: clamp(2rem, 1.5vw, 3rem);
 }
 
 .modal-screenInitial .container .gameFinished button[data-button-type="reset"] {
@@ -295,7 +295,7 @@ body {
 
 .modal-screenInitial .container .gameFinished .pontuacao h5,
 .modal-screenInitial .container .gameFinished .pontuacao p {
-    font-size: clamp(2.5rem, 4vw, 5rem);
+    font-size: clamp(2.5rem, 3vw, 5rem);
 }
 
 .modal-screenInitial .container .gameFinished .pontuacao h5 {
@@ -313,7 +313,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    padding: 4rem;
+    padding: 1rem;
     top: 0;
     border-radius: .8rem;
     z-index: 100;
@@ -321,7 +321,7 @@ body {
 
 .modal-screenInitial .container .controls h3 {
     font-size: clamp(2.5rem, 3vw, 4.5rem);
-    margin-bottom: 5rem;
+    margin-bottom: 3.5rem;
     color: var(--orange);
 }
 
