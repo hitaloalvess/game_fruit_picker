@@ -32,7 +32,14 @@ export const getLargura = function(elemento) {
     return elemento.clientWidth
 }
 
-export const valueBetween = function(max, min) {
-    if (min > max)[min, max] = [max, min]
-    return Math.round(Math.random() * (max - min) + min)
+// export const valueBetween = function(max, min) {
+//     if (min > max)[min, max] = [max, min]
+//     return Math.round(Math.random() * (max - min)) + min
+// }
+
+export const valueBetween = function(max, min, porc = 100) {
+    if (min > max)[max, min] = [min, max]
+    const random = Math.random()
+        // console.log(random, (porc / 100))
+    return Math.round((random * (porc / 100)) * (max - min)) + min
 }
