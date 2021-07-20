@@ -26,7 +26,7 @@ This project was developed with the following technologies:
 
 Fruit picker is a game developed using Javascript language, together with HTML and CSS.
 
-## :memo: Objectives
+## memo Objectives
 
 The creation of this project was carried out aiming to improve concepts and techniques related to Javascript, CSS and HTML. Through the development of the game, it was possible to work on concepts related to:
 
