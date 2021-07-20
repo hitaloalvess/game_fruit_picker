@@ -38,5 +38,16 @@ The creation of this project was carried out aiming to improve concepts and tech
 - Responsive layout
 - Dynamic HTML generation, etc.
 
+
+## 🚀 Installation
+
+Este projeto não precisa de nenhuma depedência para funcionar, portanto para executá-lo basta clonar o repositório:
+
+```sh
+  $ git clone https://github.com/hitaloalvess/game_fruit_picker.git
+```
+
+Na sequência para executá-lo diretamente em seu browser, clique com o botão direito no arquivo `index.html`, e selecione a opção `Abrir com` e para finalizar escolha o navegador de sua preferência.
+
 ---
 Made with ♥ by Hitalo 🚀
