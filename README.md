@@ -47,7 +47,7 @@ This project doesn't need any dependencies to work, so to run it just clone the 
 ```sh
   $ git clone https://github.com/hitaloalvess/game_fruit_picker.git
 ```
-
 In order to run it directly in your browser, right-click on the `index.html` file, select the `Open with` option and choose the browser of your choice.
+
 ---
 Made with ♥ by Hitalo 🚀
