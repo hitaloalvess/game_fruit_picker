@@ -5,7 +5,8 @@
 <p align="center">
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-objectives">Objectives</a>
+  <a href="#-objectives">Objectives</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-installation">Installation</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 </p>
 
@@ -41,13 +42,12 @@ The creation of this project was carried out aiming to improve concepts and tech
 
 ## 🚀 Installation
 
-Este projeto não precisa de nenhuma depedência para funcionar, portanto para executá-lo basta clonar o repositório:
+This project doesn't need any dependencies to work, so to run it just clone the repository:
 
 ```sh
   $ git clone https://github.com/hitaloalvess/game_fruit_picker.git
 ```
 
-Na sequência para executá-lo diretamente em seu browser, clique com o botão direito no arquivo `index.html`, e selecione a opção `Abrir com` e para finalizar escolha o navegador de sua preferência.
-
+In order to run it directly in your browser, right-click on the `index.html` file, select the `Open with` option and choose the browser of your choice.
 ---
 Made with ♥ by Hitalo 🚀
